@@ -23,7 +23,6 @@ while True:
    divisao= n[0]/n[1]
    print(divisao)
 
-
   if escolha ==5 :
     break
 

@@ -5,4 +5,4 @@ def quadrado(n):
   return soma
 
 n = int(input("Digite um número natural: "))
-print(f"O quadrado de {n} é: {quadrado(n)}")
+print(f"O quadrado de {n} é: {quadrado(n)}") 

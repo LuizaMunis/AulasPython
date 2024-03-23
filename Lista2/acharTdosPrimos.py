@@ -8,4 +8,4 @@ for numero  in range(2   , n + 1):
             break
     else: primos.append(numero)
 
-print(primos)
+print(primos) 
