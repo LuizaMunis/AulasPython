@@ -117,16 +117,14 @@ def ordenar():
                 
 
 def ler():
-    try:
-        with open('agenda.csv', 'r', newline='') as file:
-            reader = csv.reader(file)
-            next(reader)  # Ignora o cabeçalho
-            for linha in reader:
-                nome, aniversario, email, telefones = linha
-                agenda[nome] = {"Aniversário": aniversario, "Email": email, "Telefones": eval(telefones)}
-        print("Dados da agenda carregados com sucesso!")
-    except FileNotFoundError:
-        print("Arquivo da agenda não encontrado.")
+    
+    with open('agenda.csv', 'r', newline='') as file:
+        reader = csv
+        for linha in reader:
+            nome, aniversario, email, telefones = linha
+            agenda[nome] = {"Aniversário": aniversario, "Email": email, "Telefones": eval(telefones)}
+    print("Dados da agenda carregados com sucesso!")
+
         
 
 def aniversariantes_do_dia():
