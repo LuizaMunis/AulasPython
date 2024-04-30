@@ -30,8 +30,18 @@ class ContaBancaria:
         ContaBancaria.contas.append(self)
 
     def consultar_saldo(self):
-        return self.saldo
+        nome_conta = input("Digite o nome da conta que deseja consultar: ")
+        conta_encontrada = False
+        for conta in ContaBancaria.contas:
+            if conta.cliente.nome == nome_conta:
+                print("Saldo atual:", conta.saldo)
+                conta_encontrada = True
+                break
+        if not conta_encontrada:
+            print("Conta não encontrada.")
 
+        
+        
     def saca(self, valor):
         self.saldo -= valor
         self.historico.transacoes.append(f"Saque:-{valor}")
@@ -48,18 +58,22 @@ class ContaBancaria:
     def alterar_titular(self, novo_titular):
         self.cliente.nome = novo_titular
 
-    def transfere_para(self, destino, valor):
-        for conta in ContaBancaria.contas:
-            if conta.cliente.nome == destino:
+    def transfere_para(self):
+        destino = input("Digite o nome do destinatário: ")
+        valor = float(input("Digite o valor a transferir: "))
+        
+        for conta_destino in ContaBancaria.contas:
+            if conta_destino.cliente.nome == destino:
                 if self.saldo >= valor:
                     self.saldo -= valor
-                    conta.saldo += valor
+                    conta_destino.saldo += valor
                     print("Transferência realizada com sucesso!")
                     return
                 else:
                     print("Saldo insuficiente para realizar a transferência.")
                     return
         print("Conta de destino não encontrada.")
+
 
     def fechar_conta(self, nome_conta_cancelar):
         nome_conta_cancelar = input("Digite o nome da conta que deseja cancelar")
@@ -100,12 +114,15 @@ opcao=None
 cliente1 = Cliente("Pebinha", "Silva", "123.456.789-00")
 conta = ContaBancaria(cliente1, numero_agencia="896523", tipo_conta="Corrente", saldo=2000, limite=1000)
 
+cliente2 = Cliente("Luiza", "joana", "009.876.543-21")
+conta = ContaBancaria(cliente2, numero_agencia="74556", tipo_conta="Corrente", saldo=2000, limite=1000)
+
 while opcao != 0:
     menu()
     opcao = int(input("Escolha uma opção: "))
 
     if opcao == 1:
-        print("Saldo atual:", conta.consultar_saldo())
+        conta.consultar_saldo()
         
     elif opcao == 2:
         valor = float(input("Digite o valor a sacar: "))
@@ -119,9 +136,7 @@ while opcao != 0:
         print("Extrato:", conta.obter_extrato())
         
     elif opcao == 5:
-        destino = input("Digite o nome do destinatário: ")
-        valor = float(input("Digite o valor a transferir: "))
-        conta.transfere_para(destino, valor)
+        conta.transfere_para()
         
     elif opcao == 6:
         conta.fechar_conta()
